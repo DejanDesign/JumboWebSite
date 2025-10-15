@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Jumbo Convenience Store</title>
+    <script>
+        // Redirect to React app blog page
+        window.location.replace('/blog');
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+           /* -webkit-background-clip: text;*/
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        /* Search Section */
+        .search-section {
+            max-width: 1400px;
+            margin: -2rem auto 3rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #fbbf24;
+            border-color: #fbbf24;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: #fbbf24;
+            border-color: #fbbf24;
+            color: white;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.2);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-category {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: #fef3c7;
+            color: #f59e0b;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .blog-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .read-time {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .featured-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(245, 158, 11, 0.2);
+        }
+
+        .featured-image {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: white;
+            color: #f59e0b;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .featured-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .page-btn {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: #fbbf24;
+            border-color: #fbbf24;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 300px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-filter {
+                width: 100%;
+            }
+
+            .category-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">JUMBO</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Our Blog</h1>
+            <p class="hero-subtitle">Stories, tips, and updates from the Jumbo family</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="recipes">Recipes</button>
+                <button class="category-btn" data-category="tips">Tips</button>
+                <button class="category-btn" data-category="news">News</button>
+                <button class="category-btn" data-category="community">Community</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Featured Post -->
+        <div class="featured-post">
+            <div class="featured-image">
+                <div class="featured-badge">⭐ FEATURED</div>
+                🎉
+            </div>
+            <div class="featured-content">
+                <div class="blog-meta">
+                    <span class="blog-category">NEWS</span>
+                    <span class="blog-date">📅 October 10, 2025</span>
+                </div>
+                <h2 class="featured-title">Grand Reopening: A Dream Come True</h2>
+                <p class="blog-excerpt">After months of hard work and dedication, we're thrilled to announce that Jumbo Convenience Store is officially open! Join us as we share the incredible journey of bringing this beloved store back to life...</p>
+                <div class="blog-author">
+                    <div class="author-avatar">👨‍💼</div>
+                    <div class="author-info">
+                        <div class="author-name">Djukic Family</div>
+                        <div class="read-time">8 min read</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h2 class="section-title">Latest Articles</h2>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid">
+            <div class="blog-card" data-category="recipes">
+                <div class="blog-image">🥖</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">RECIPES</span>
+                        <span class="blog-date">📅 October 8, 2025</span>
+                    </div>
+                    <h3 class="blog-title">5 Delicious Ways to Use Fresh Bread</h3>
+                    <p class="blog-excerpt">Discover creative and mouth-watering recipes using our freshly baked bread delivered daily to Jumbo.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">👩‍🍳</div>
+                        <div class="author-info">
+                            <div class="author-name">Maria Djukic</div>
+                            <div class="read-time">5 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card" data-category="tips">
+                <div class="blog-image">🌾</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">TIPS</span>
+                        <span class="blog-date">📅 October 5, 2025</span>
+                    </div>
+                    <h3 class="blog-title">Guide to Gluten-Free Living in Gozo</h3>
+                    <p class="blog-excerpt">Everything you need to know about our gluten-free products and how to maintain a healthy lifestyle.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">💚</div>
+                        <div class="author-info">
+                            <div class="author-name">Health Team</div>
+                            <div class="read-time">6 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card" data-category="community">
+                <div class="blog-image">🤝</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">COMMUNITY</span>
+                        <span class="blog-date">📅 October 3, 2025</span>
+                    </div>
+                    <h3 class="blog-title">Meet Your Neighbors: Marsalforn Stories</h3>
+                    <p class="blog-excerpt">Celebrating the wonderful community that makes Marsalforn special and why we love serving you.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">❤️</div>
+                        <div class="author-info">
+                            <div class="author-name">Djukic Family</div>
+                            <div class="read-time">7 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card" data-category="tips">
+                <div class="blog-image">🥛</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">TIPS</span>
+                        <span class="blog-date">📅 September 30, 2025</span>
+                    </div>
+                    <h3 class="blog-title">Lactose-Free Alternatives: Complete Guide</h3>
+                    <p class="blog-excerpt">Explore our range of lactose-free products perfect for everyone in your family.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">🥤</div>
+                        <div class="author-info">
+                            <div class="author-name">Nutrition Expert</div>
+                            <div class="read-time">4 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card" data-category="recipes">
+                <div class="blog-image">🍳</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">RECIPES</span>
+                        <span class="blog-date">📅 September 28, 2025</span>
+                    </div>
+                    <h3 class="blog-title">Quick Breakfast Ideas for Busy Mornings</h3>
+                    <p class="blog-excerpt">Simple and nutritious breakfast recipes using products from Jumbo that take less than 10 minutes.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">⏰</div>
+                        <div class="author-info">
+                            <div class="author-name">Chef Antonio</div>
+                            <div class="read-time">5 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card" data-category="news">
+                <div class="blog-image">📦</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">NEWS</span>
+                        <span class="blog-date">📅 September 25, 2025</span>
+                    </div>
+                    <h3 class="blog-title">New Products Arriving This Month</h3>
+                    <p class="blog-excerpt">Exciting new additions to our shelves that you won't want to miss. Quality products selected just for you.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">📢</div>
+                        <div class="author-info">
+                            <div class="author-name">Store Team</div>
+                            <div class="read-time">3 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn">← Previous</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">Next →</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Jumbo Convenience Store. Built with ❤️ by the Djukic Family.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Category filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+
+                // Filter cards
+                blogCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            blogCards.forEach(card => {
+                const title = card.querySelector('.blog-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Click to view post (you can link to single post page)
+        blogCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Redirect to React app blog page
+                window.location.href = '/';
+            });
+        });
+
+        document.querySelector('.featured-post').addEventListener('click', function() {
+            // Redirect to React app blog page
+            window.location.href = '/';
+        });
+    </script>
+</body>
+</html>

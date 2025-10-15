@@ -1,0 +1,272 @@
+/* ========================================
+   CONTACT SECTION STYLES - JUMBO CONVENIENCE STORE
+   ======================================== */
+
+.contact {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  color: white;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,255,255,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.contact-card:hover::before {
+  left: 100%;
+}
+
+.contact-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.contact-card.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.contact-card.clickable:hover {
+  transform: translateY(-10px) scale(1.02);
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.6);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.contact-card.clickable:active {
+  transform: translateY(-5px) scale(0.98);
+}
+
+.contact-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.contact-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.contact-info {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contact-info a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.contact-info a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ========================================
+   SOCIAL MEDIA SECTION
+   ======================================== */
+
+.social-section {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.social-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.social-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,255,255,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.social-card:hover::before {
+  left: 100%;
+}
+
+.social-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.social-card.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.social-card.clickable:hover {
+  transform: translateY(-10px) scale(1.02);
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.6);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.social-card.clickable:active {
+  transform: translateY(-5px) scale(0.98);
+}
+
+.social-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.social-label {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.social-info {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.social-info a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.social-info a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 4rem 0;
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-card {
+    padding: 2rem;
+  }
+  
+  .contact-icon {
+    font-size: 2.5rem;
+  }
+  
+  .contact-title {
+    font-size: 1.3rem;
+  }
+  
+  .social-section {
+    margin-top: 3rem;
+  }
+  
+  .social-title {
+    font-size: 1.8rem;
+  }
+  
+  .social-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .social-card {
+    padding: 1.5rem;
+  }
+  
+  .social-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: 3rem 0;
+  }
+  
+  .social-section {
+    margin-top: 2rem;
+  }
+  
+  .social-title {
+    font-size: 1.5rem;
+  }
+  
+  .social-card {
+    padding: 1.2rem;
+  }
+  
+  .social-icon {
+    font-size: 1.8rem;
+  }
+  
+  .social-label {
+    font-size: 1.1rem;
+  }
+}
