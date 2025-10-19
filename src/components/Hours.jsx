@@ -1,4 +1,6 @@
 import React from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
+import HourItem from './HourItem';
 import './Hours.css';
 
 // ========================================
@@ -25,19 +27,19 @@ const Hours = () => {
     { day: 'Sunday', time: '10:00 - 22:00', special: true }
   ];
 
+  const titleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.2,
+    duration: 0.8 
+  });
+
   return (
     <section className="hours" id="hours">
       <div className="container">
-        <h2 className="section-title fade-in">Opening Hours</h2>
+        <h2 ref={titleRef} className="section-title">Opening Hours</h2>
         <div className="hours-grid">
           {hours.map((hour, index) => (
-            <div 
-              key={index} 
-              className={`hour-item fade-in ${hour.special ? 'special' : ''} ${hour.day === today ? 'today' : ''}`}
-            >
-              <span className="day">{hour.day}</span>
-              <span className="time">{hour.time}</span>
-            </div>
+            <HourItem key={index} hour={hour} index={index} today={today} />
           ))}
         </div>
       </div>

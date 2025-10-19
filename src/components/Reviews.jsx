@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
+import ReviewCard from './ReviewCard';
 import './Reviews.css';
 import googlePlacesApi from '../services/googlePlacesApi';
 
@@ -18,6 +20,31 @@ const Reviews = () => {
   const [error, setError] = useState(null);
   const [businessInfo, setBusinessInfo] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
+
+  // Scroll animation refs
+  const titleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.2,
+    duration: 0.8 
+  });
+  
+  const subtitleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.4,
+    duration: 0.8 
+  });
+  
+  const ratingRef = useScrollAnimation({ 
+    animationType: 'scaleIn', 
+    delay: 0.6,
+    duration: 0.8 
+  });
+  
+  const performanceRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.8,
+    duration: 0.8 
+  });
 
   // Business coordinates from Google Maps
   const BUSINESS_LAT = 36.0721098;
@@ -122,7 +149,7 @@ const Reviews = () => {
     return (
       <section className="reviews-section">
         <div className="container">
-          <h2 className="section-title fade-in">Customer Reviews</h2>
+          <h2 ref={titleRef} className="section-title">Customer Reviews</h2>
           <div className="reviews-loading">
             <div className="loading-spinner"></div>
             <p>Loading reviews...</p>
@@ -136,7 +163,7 @@ const Reviews = () => {
     return (
       <section className="reviews-section">
         <div className="container">
-          <h2 className="section-title fade-in">Customer Reviews</h2>
+          <h2 ref={titleRef} className="section-title">Customer Reviews</h2>
           <div className="reviews-error">
             <p>{error}</p>
             <p>Please check your Google Maps listing and try again later.</p>
@@ -150,8 +177,8 @@ const Reviews = () => {
     return (
       <section className="reviews-section">
         <div className="container">
-          <h2 className="section-title fade-in">Customer Reviews</h2>
-          <p className="reviews-subtitle fade-in">
+          <h2 ref={titleRef} className="section-title">Customer Reviews</h2>
+          <p ref={subtitleRef} className="reviews-subtitle">
             See what our customers are saying about {businessInfo?.name || 'Jumbo Convenience Store'}
           </p>
           
@@ -179,14 +206,14 @@ const Reviews = () => {
   return (
     <section className="reviews-section" id="reviews">
       <div className="container">
-        <h2 className="section-title fade-in">Customer Reviews</h2>
-        <p className="reviews-subtitle fade-in">
+        <h2 ref={titleRef} className="section-title">Customer Reviews</h2>
+        <p ref={subtitleRef} className="reviews-subtitle">
           See what our customers are saying about {businessInfo?.name || 'Jumbo Convenience Store'}
         </p>
         
         {/* Google Rating Display */}
         {businessInfo && (
-          <div className="google-rating-display fade-in">
+          <div ref={ratingRef} className="google-rating-display">
             <div className="rating-container">
               <div className="rating-number">{businessInfo.rating.toFixed(1)}</div>
               <div className="rating-stars">
@@ -206,61 +233,12 @@ const Reviews = () => {
         
         <div className="reviews-grid">
           {reviews.map((review, index) => (
-            <div key={review.id} className={`review-card fade-in creative-card-${index % 3}`}>
-              <div className="review-header">
-                <div className="reviewer-info">
-                  <div className="avatar-container">
-                    {review.profile_photo_url ? (
-                      <img 
-                        src={review.profile_photo_url} 
-                        alt={review.author_name}
-                        className="reviewer-avatar"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
-                        }}
-                      />
-                    ) : null}
-                    <div 
-                      className="reviewer-avatar-fallback"
-                      style={{ display: review.profile_photo_url ? 'none' : 'flex' }}
-                    >
-                      {review.author_name ? review.author_name.charAt(0).toUpperCase() : 'A'}
-                    </div>
-                  </div>
-                  <div className="reviewer-details">
-                    <h4 className="reviewer-name">{review.author_name}</h4>
-                    <div className="review-rating">
-                      {renderStars(review.rating)}
-                    </div>
-                  </div>
-                </div>
-                <span className="review-date">{formatDate(review.time)}</span>
-              </div>
-              
-              <div className="review-content">
-                <div className="quote-mark">"</div>
-                <p className="review-text">{review.text}</p>
-                <div className="review-footer">
-                  <a 
-                    href={`https://www.google.com/maps/place/Jumbo+Convenience+Store/@36.0721098,14.2554454,17z/data=!4m16!1m9!3m8!1s0x130fb51ec2c704c1:0xb701478bf889752b!2sJumbo+Convenience+Store!8m2!3d36.0721098!4d14.2554454!9m1!1b1!16s%2Fg%2F11vc2l5zzq!3m5!1s0x130fb51ec2c704c1:0xb701478bf889752b!8m2!3d36.0721098!4d14.2554454!16s%2Fg%2F11vc2l5zzq?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="google-badge"
-                    title="View this review on Google Maps"
-                  >
-                    <span className="google-icon">G</span>
-                    <span>Google Review</span>
-                    <span className="external-link-icon">↗</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+            <ReviewCard key={review.id} review={review} index={index} />
           ))}
         </div>
 
         {/* Google Business Performance Card - After Reviews */}
-        <div className="google-views-card fade-in">
+        <div ref={performanceRef} className="google-views-card">
           <div className="views-icon">📊</div>
           <div className="views-content">
             <h3>Google Business Performance</h3>

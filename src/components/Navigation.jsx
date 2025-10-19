@@ -48,9 +48,19 @@ const Navigation = () => {
     e.preventDefault();
     const targetId = e.target.getAttribute('href');
     if (targetId && targetId.startsWith('#')) {
-      // If we're on the blog page, navigate to home first
+      // If we're not on the home page, navigate to home with the section
       if (location.pathname !== '/') {
-        navigate(`/${targetId}`);
+        navigate('/');
+        // Wait for navigation to complete, then scroll to section
+        setTimeout(() => {
+          const element = document.querySelector(targetId);
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
         return;
       }
       

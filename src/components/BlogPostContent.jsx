@@ -23,11 +23,6 @@ const BlogPostContent = ({ post, onBack }) => {
   const postTitle = post?.title || 'Jumbo Convenience Store';
   const postDescription = post?.excerpt || 'Check out this post from Jumbo Convenience Store';
   
-  // Get comment count from localStorage
-  const getCommentCount = () => {
-    const savedComments = localStorage.getItem(`comments_${post.id}`);
-    return savedComments ? JSON.parse(savedComments).length : 0;
-  };
   
   console.log('Share data:', { currentUrl, postTitle, postDescription });
 
@@ -92,7 +87,6 @@ const BlogPostContent = ({ post, onBack }) => {
           <div className="post-meta">
             <span className="post-date">📅 {formatDate(post.date)}</span>
             <span className="post-read-time">⏱️ {getReadingTime(post.excerpt)} min read</span>
-            <span className="post-comments">💬 {getCommentCount()} comments</span>
           </div>
           <h1 className="post-title">{post.title}</h1>
           <p className="post-subtitle">{post.excerpt}</p>

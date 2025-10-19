@@ -1,0 +1,137 @@
+/* ========================================
+   LEGAL PAGES STYLES - JUMBO CONVENIENCE STORE
+   ======================================== */
+
+.legal-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  padding: 4rem 0;
+}
+
+.legal-page .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1E293B;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.legal-content {
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  line-height: 1.8;
+  color: #374151;
+}
+
+.legal-content h2 {
+  color: #1E293B;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.legal-content h3 {
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: #4B5563;
+}
+
+.legal-content ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.legal-content li {
+  margin-bottom: 0.75rem;
+  color: #4B5563;
+  font-size: 1rem;
+}
+
+.legal-content em {
+  color: #6B7280;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.legal-content strong {
+  color: #1E293B;
+  font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .legal-page {
+    padding: 2rem 0;
+  }
+  
+  .legal-page .container {
+    padding: 0 1rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .legal-content {
+    padding: 2rem;
+  }
+  
+  .legal-content h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  .legal-content h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-page {
+    padding: 1.5rem 0;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .legal-content {
+    padding: 1.5rem;
+  }
+  
+  .legal-content h2 {
+    font-size: 1.1rem;
+  }
+  
+  .legal-content p,
+  .legal-content li {
+    font-size: 0.95rem;
+  }
+}

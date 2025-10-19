@@ -1,4 +1,5 @@
 import React from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Hero.css';
 
 // ========================================
@@ -12,6 +13,24 @@ import './Hero.css';
 // ========================================
 
 const Hero = () => {
+  const titleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.3,
+    duration: 1.0 
+  });
+  
+  const subtitleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.6,
+    duration: 1.0 
+  });
+  
+  const buttonsRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.9,
+    duration: 1.0 
+  });
+
   const handleNavClick = (e) => {
     e.preventDefault();
     const targetId = e.target.getAttribute('href');
@@ -34,9 +53,9 @@ const Hero = () => {
     <section className="hero" id="home">
       <div className="hero-background"></div>
       <div className="hero-content">
-        <h1 className="hero-title">Welcome to Jumbo</h1>
-        <p className="hero-subtitle">Your Family-Run Convenience Store in Marsalforn, Gozo</p>
-        <div className="hero-buttons">
+        <h1 ref={titleRef} className="hero-title">Welcome to Jumbo</h1>
+        <p ref={subtitleRef} className="hero-subtitle">Your Family-Run Convenience Store in Marsalforn, Gozo</p>
+        <div ref={buttonsRef} className="hero-buttons">
           <a href="#contact" className="btn btn-primary" onClick={handleNavClick}>Visit Us</a>
           <a href="#about" className="btn btn-secondary" onClick={handleNavClick}>Our Story</a>
         </div>

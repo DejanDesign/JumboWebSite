@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import BlogPostContent from '../components/BlogPostContent';
-import Comments from '../components/Comments';
 import FloatingShareButton from '../components/FloatingShareButton';
 import Footer from '../components/Footer';
-import blogApi from '../services/blogApi';
+import { getPosts } from '../services/wordpressApi';
 import './BlogPost.css';
 
 const BlogPost = () => {
@@ -26,9 +25,25 @@ const BlogPost = () => {
       setLoading(true);
       setError(null);
       
-      // Try to fetch the specific post
-      const posts = await blogApi.fetchBlogPosts();
-      const foundPost = posts.find(p => p.id === parseInt(id));
+      // Fetch all posts from WordPress
+      const postsData = await getPosts({ per_page: 100 });
+      
+      // Transform and find the specific post
+      const transformedPosts = postsData && postsData.length > 0 ? postsData.map((post, index) => ({
+        id: post.id,
+        title: post.title.rendered,
+        excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+        category: post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0] && post._embedded['wp:term'][0][0] ? post._embedded['wp:term'][0][0].name : 'General',
+        date: post.date,
+        author: post._embedded && post._embedded.author && post._embedded.author[0] ? post._embedded.author[0].name : 'Jumbo Team',
+        readTime: '5 min read',
+        image: '📝',
+        imageUrl: post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0] ? post._embedded['wp:featuredmedia'][0].source_url : null,
+        featured: index === 0,
+        content: post.content.rendered
+      })) : [];
+      
+      const foundPost = transformedPosts.find(p => p.id === parseInt(id));
       
       if (foundPost) {
         setPost(foundPost);
@@ -80,12 +95,6 @@ const BlogPost = () => {
     <div className="blog-post-page">
       <Navigation />
       <BlogPostContent post={post} onBack={handleBackToBlog} />
-      <div className="container">
-        <Comments 
-          postId={post.id} 
-          postTitle={post.title}
-        />
-      </div>
       <FloatingShareButton 
         url={window.location.href}
         title={post.title}

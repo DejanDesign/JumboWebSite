@@ -87,5 +87,16 @@ jspm_packages/
 # TernJS port file
 .tern-port
 
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
+# Windows specific
+AppData/
+*.lnk
+
+# Temporary files
+*.tmp
+*.temp
+
+# WebDriver
+.wdm/
+
+# AMD files
+AppData/Local/AMD/

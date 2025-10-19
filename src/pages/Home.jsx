@@ -7,6 +7,7 @@ import Hours from '../components/Hours';
 import Contact from '../components/Contact';
 import Map from '../components/Map';
 import Reviews from '../components/Reviews';
+import BlogPosts from '../components/BlogPosts';
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -16,17 +17,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      <Navigation />
-      <Hero />
-      <About />
-      <Features />
-      <Hours />
-      <Contact />
-      <Map />
-      <Reviews />
-      <Footer />
-    </div>
+        <div className="home">
+          <Navigation />
+          <Hero />
+          <About />
+          <Features />
+          <Hours />
+          <Contact />
+          <Map />
+          <Reviews />
+          <BlogPosts />
+          <Footer />
+        </div>
   );
 };
 

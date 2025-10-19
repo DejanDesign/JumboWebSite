@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Map.css';
 
 // ========================================
@@ -16,6 +17,25 @@ const MapComponent = () => {
   const mapInstanceRef = useRef(null);
   const isInitializing = useRef(false);
   const [mapLoading, setMapLoading] = useState(true);
+
+  // Scroll animation refs
+  const titleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.2,
+    duration: 0.8 
+  });
+  
+  const mapWrapperRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.4,
+    duration: 0.8 
+  });
+  
+  const locationCardRef = useScrollAnimation({ 
+    animationType: 'fadeInLeft', 
+    delay: 0.6,
+    duration: 0.8 
+  });
 
   useEffect(() => {
     let mapTimeout;
@@ -572,8 +592,8 @@ const MapComponent = () => {
   return (
     <section className="map-section" id="map">
       <div className="container">
-        <h2 className="section-title fade-in">Find Us</h2>
-        <div className="map-wrapper fade-in">
+        <h2 ref={titleRef} className="section-title">Find Us</h2>
+        <div ref={mapWrapperRef} className="map-wrapper">
           <div className="map-container">
             {mapLoading && (
               <div className="map-loading">
@@ -584,7 +604,7 @@ const MapComponent = () => {
             <div ref={mapRef} className="google-map"></div>
           </div>
           <div className="map-info">
-            <div className="location-card">
+            <div ref={locationCardRef} className="location-card">
               <div className="location-icon">📍</div>
               <div className="location-details">
                 <h3>Jumbo Convenience Store</h3>

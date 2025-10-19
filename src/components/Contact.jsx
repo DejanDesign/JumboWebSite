@@ -1,14 +1,15 @@
 import React from 'react';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Contact.css';
 
 // ========================================
 // CONTACT COMPONENT - JUMBO CONVENIENCE STORE
 // ========================================
 // This component displays contact information with:
-// - Animated contact cards with hover effects
+// - Enhanced scroll-triggered animations
+// - Staggered card animations
 // - Interactive map integration
 // - Responsive grid layout
-// - Scroll-triggered animations
 // ========================================
 
 const Contact = () => {
@@ -72,40 +73,72 @@ const Contact = () => {
     }
   ];
 
+  const titleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.2,
+    duration: 0.8 
+  });
+
+  const socialTitleRef = useScrollAnimation({ 
+    animationType: 'fadeInUp', 
+    delay: 0.4,
+    duration: 0.8 
+  });
+
   return (
     <section className="contact" id="contact">
       <div className="container">
-        <h2 className="section-title fade-in">Get In Touch</h2>
+        <h2 ref={titleRef} className="section-title">Get In Touch</h2>
         <div className="contact-grid">
-          {contactInfo.map((contact, index) => (
-            <div 
-              key={index} 
-              className={`contact-card fade-in ${contact.isClickable ? 'clickable' : ''}`}
-              onClick={contact.action}
-              style={{ cursor: contact.isClickable ? 'pointer' : 'default' }}
-            >
-              <div className="contact-icon">{contact.icon}</div>
-              <h3 className="contact-title">{contact.label}</h3>
-              <div className="contact-info" dangerouslySetInnerHTML={{ __html: contact.info }}></div>
-            </div>
-          ))}
+          {contactInfo.map((contact, index) => {
+            const cardRef = useScrollAnimation({ 
+              animationType: 'fadeInUp', 
+              delay: 0.1,
+              duration: 0.6,
+              stagger: 0.15
+            });
+            
+            return (
+              <div 
+                key={index} 
+                ref={cardRef}
+                className={`contact-card ${contact.isClickable ? 'clickable' : ''}`}
+                onClick={contact.action}
+                style={{ cursor: contact.isClickable ? 'pointer' : 'default' }}
+              >
+                <div className="contact-icon">{contact.icon}</div>
+                <h3 className="contact-title">{contact.label}</h3>
+                <div className="contact-info" dangerouslySetInnerHTML={{ __html: contact.info }}></div>
+              </div>
+            );
+          })}
         </div>
         
         <div className="social-section">
-          <h3 className="social-title fade-in">Follow Us</h3>
+          <h3 ref={socialTitleRef} className="social-title">Follow Us</h3>
           <div className="social-grid">
-            {socialMedia.map((social, index) => (
-              <div 
-                key={index} 
-                className={`social-card fade-in ${social.isClickable ? 'clickable' : ''}`}
-                onClick={social.action}
-                style={{ cursor: social.isClickable ? 'pointer' : 'default' }}
-              >
-                <div className="social-icon">{social.icon}</div>
-                <h4 className="social-label">{social.label}</h4>
-                <div className="social-info">{social.info}</div>
-              </div>
-            ))}
+            {socialMedia.map((social, index) => {
+              const socialCardRef = useScrollAnimation({ 
+                animationType: 'scaleIn', 
+                delay: 0.1,
+                duration: 0.6,
+                stagger: 0.2
+              });
+              
+              return (
+                <div 
+                  key={index} 
+                  ref={socialCardRef}
+                  className={`social-card ${social.isClickable ? 'clickable' : ''}`}
+                  onClick={social.action}
+                  style={{ cursor: social.isClickable ? 'pointer' : 'default' }}
+                >
+                  <div className="social-icon">{social.icon}</div>
+                  <h4 className="social-label">{social.label}</h4>
+                  <div className="social-info">{social.info}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
