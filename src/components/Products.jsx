@@ -28,7 +28,7 @@ const Products = () => {
       category: 'breakfast'
     },
     {
-      image: '/imagesJumbo/crunch time.webp',
+      image: '/imagesJumbo/cruncsh time.webp',
       title: 'Crunch Time Snacks',
       description: 'The ultimate selection of chips, sticks, and savory bites for any craving.',
       category: 'snacks'
@@ -88,7 +88,11 @@ const Products = () => {
       <div className="container">
         <h2 ref={titleRef} className="section-title">Our Products</h2>
         <p className="products-subtitle">
-          Discover our carefully curated selection of quality products for every need
+          Discover our carefully curated selection of quality products for every need. 
+          <br />
+          <span className="subtitle-highlight">And that's just the beginning!</span> 
+          <span className="subtitle-emoji">✨</span> 
+          Explore our full range of similar products in-store for an even greater variety.
         </p>
         
         <div className="products-grid">
