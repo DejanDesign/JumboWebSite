@@ -1,0 +1,204 @@
+/* ========================================
+   LEGAL LAYOUT STYLES - JUMBO CONVENIENCE STORE
+   ======================================== */
+
+.legal-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-page-header {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  padding: 2rem 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/heroJumbo.webp') center/cover;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.legal-page-header .container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.back-to-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.back-to-home-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.legal-page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.legal-page-content {
+  flex: 1;
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  padding: 4rem 0;
+}
+
+.legal-page-content .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.legal-page-content .legal-content {
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  line-height: 1.8;
+  color: #374151;
+}
+
+.legal-page-content .legal-content h2 {
+  color: #1E293B;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.legal-page-content .legal-content h3 {
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-page-content .legal-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: #4B5563;
+}
+
+.legal-page-content .legal-content ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.legal-page-content .legal-content li {
+  margin-bottom: 0.75rem;
+  color: #4B5563;
+  font-size: 1rem;
+}
+
+.legal-page-content .legal-content em {
+  color: #6B7280;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.legal-page-content .legal-content strong {
+  color: #1E293B;
+  font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .legal-page-header {
+    padding: 1.5rem 0;
+  }
+  
+  .legal-page-header .container {
+    padding: 0 1rem;
+  }
+  
+  .legal-page-title {
+    font-size: 2.5rem;
+  }
+  
+  .legal-page-content {
+    padding: 2rem 0;
+  }
+  
+  .legal-page-content .container {
+    padding: 0 1rem;
+  }
+  
+  .legal-page-content .legal-content {
+    padding: 2rem;
+  }
+  
+  .legal-page-content .legal-content h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  .legal-page-content .legal-content h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-page-header {
+    padding: 1rem 0;
+  }
+  
+  .legal-page-title {
+    font-size: 2rem;
+  }
+  
+  .legal-page-content {
+    padding: 1.5rem 0;
+  }
+  
+  .legal-page-content .legal-content {
+    padding: 1.5rem;
+  }
+  
+  .legal-page-content .legal-content h2 {
+    font-size: 1.1rem;
+  }
+  
+  .legal-page-content .legal-content p,
+  .legal-page-content .legal-content li {
+    font-size: 0.95rem;
+  }
+  
+  .back-to-home-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

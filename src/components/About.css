@@ -1,0 +1,70 @@
+/* ========================================
+   ABOUT/STORY SECTION STYLES - JUMBO CONVENIENCE STORE
+   ======================================== */
+
+.story {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.story-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.story-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.story-text p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 1s ease;
+  font-size: 1.1rem;
+}
+
+.story-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .story {
+    padding: 4rem 0;
+  }
+  
+  .story-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .story-text p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .story {
+    padding: 3rem 0;
+  }
+  
+  .story-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}

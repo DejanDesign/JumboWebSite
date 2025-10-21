@@ -1,0 +1,286 @@
+/* WordPress-style Share Buttons */
+.share-buttons-container {
+  margin: 2rem 0;
+}
+
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #374151;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: white;
+}
+
+.share-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.share-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.share-btn:hover svg {
+  transform: scale(1.1);
+}
+
+.share-btn span {
+  font-weight: 500;
+}
+
+/* Individual platform styles */
+.share-btn.facebook {
+  border-color: #1877f2;
+  color: #1877f2;
+}
+
+.share-btn.facebook:hover {
+  background: #1877f2;
+  border-color: #1877f2;
+  color: white;
+}
+
+.share-btn.twitter {
+  border-color: #1da1f2;
+  color: #1da1f2;
+}
+
+.share-btn.twitter:hover {
+  background: #1da1f2;
+  border-color: #1da1f2;
+  color: white;
+}
+
+.share-btn.linkedin {
+  border-color: #0077b5;
+  color: #0077b5;
+}
+
+.share-btn.linkedin:hover {
+  background: #0077b5;
+  border-color: #0077b5;
+  color: white;
+}
+
+.share-btn.whatsapp {
+  border-color: #25d366;
+  color: #25d366;
+}
+
+.share-btn.whatsapp:hover {
+  background: #25d366;
+  border-color: #25d366;
+  color: white;
+}
+
+.share-btn.telegram {
+  border-color: #0088cc;
+  color: #0088cc;
+}
+
+.share-btn.telegram:hover {
+  background: #0088cc;
+  border-color: #0088cc;
+  color: white;
+}
+
+.share-btn.pinterest {
+  border-color: #bd081c;
+  color: #bd081c;
+}
+
+.share-btn.pinterest:hover {
+  background: #bd081c;
+  border-color: #bd081c;
+  color: white;
+}
+
+.share-btn.reddit {
+  border-color: #ff4500;
+  color: #ff4500;
+}
+
+.share-btn.reddit:hover {
+  background: #ff4500;
+  border-color: #ff4500;
+  color: white;
+}
+
+.share-btn.email {
+  border-color: #6b7280;
+  color: #6b7280;
+}
+
+.share-btn.email:hover {
+  background: #6b7280;
+  border-color: #6b7280;
+  color: white;
+}
+
+.share-btn.copy {
+  border-color: #fbbf24;
+  color: #fbbf24;
+}
+
+.share-btn.copy:hover {
+  background: #fbbf24;
+  border-color: #fbbf24;
+  color: white;
+}
+
+.share-btn.copy.success {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.share-btn.copy.success:hover {
+  background: #059669;
+  border-color: #059669;
+  color: white;
+}
+
+.share-btn.native {
+  border-color: #8b5cf6;
+  color: #8b5cf6;
+}
+
+.share-btn.native:hover {
+  background: #8b5cf6;
+  border-color: #8b5cf6;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .share-buttons {
+    gap: 0.5rem;
+  }
+  
+  .share-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    min-height: 40px;
+  }
+  
+  .share-btn span {
+    display: none;
+  }
+  
+  .share-btn {
+    padding: 0.6rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+  
+  .share-btn svg {
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-buttons {
+    justify-content: center;
+  }
+  
+  .share-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0.5rem;
+  }
+  
+  .share-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Animation for copy success */
+@keyframes copySuccess {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.share-btn.copy.success {
+  animation: copySuccess 0.3s ease-in-out;
+}
+
+/* Focus styles for accessibility */
+.share-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.share-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.share-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* WordPress-style compact layout */
+.share-buttons-container.compact .share-buttons {
+  gap: 0.5rem;
+}
+
+.share-buttons-container.compact .share-btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  min-height: 36px;
+}
+
+/* WordPress-style horizontal layout */
+.share-buttons-container.horizontal .share-buttons {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* WordPress-style vertical layout */
+.share-buttons-container.vertical .share-buttons {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.share-buttons-container.vertical .share-btn {
+  justify-content: flex-start;
+  width: 100%;
+}
