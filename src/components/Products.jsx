@@ -80,6 +80,13 @@ const Products = () => {
       title: 'FROZEN HARVEST!',
       description: 'Prime Meats, Simply Prepared - From farm-fresh cuts to premium selections, our frozen meats are flash-frozen at peak freshness to lock in flavor and nutrition.',
       category: 'frozen'
+    },
+    {
+      image: null, // Special card without image
+      title: 'And Many More!',
+      description: 'We have dedicated sections for gluten-free, sugar-free, and lactose-free products. Plus, discover our extensive range of organic, vegan, and specialty items.',
+      category: 'specialty',
+      isSpecial: true
     }
   ];
 
@@ -111,19 +118,32 @@ const Products = () => {
             });
             
             return (
-              <div key={index} ref={cardRef} className={`product-card product-card-${index % 6}`}>
-                <div className="product-image-container">
-                  <img 
-                    src={product.image} 
-                    alt={product.title}
-                    className="product-image"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="product-overlay">
-                    <div className="product-category">{product.category}</div>
+              <div key={index} ref={cardRef} className={`product-card product-card-${index % 6} ${product.isSpecial ? 'special-card' : ''}`}>
+                {product.isSpecial ? (
+                  <div className="special-card-content">
+                    <div className="special-icon">🌟</div>
+                    <div className="special-categories">
+                      <span className="category-tag">Gluten-Free</span>
+                      <span className="category-tag">Sugar-Free</span>
+                      <span className="category-tag">Lactose-Free</span>
+                      <span className="category-tag">Organic</span>
+                      <span className="category-tag">Vegan</span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="product-image-container">
+                    <img 
+                      src={product.image} 
+                      alt={product.title}
+                      className="product-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="product-overlay">
+                      <div className="product-category">{product.category}</div>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="product-content">
                   <h3 className="product-title">{product.title}</h3>
@@ -131,8 +151,8 @@ const Products = () => {
                   
                   <div className="product-footer">
                     <div className="product-tag">
-                      <span className="tag-icon">✨</span>
-                      <span className="tag-text">Premium Quality</span>
+                      <span className="tag-icon">{product.isSpecial ? '🎯' : '✨'}</span>
+                      <span className="tag-text">{product.isSpecial ? 'Specialty Items' : 'Premium Quality'}</span>
                     </div>
                   </div>
                 </div>
