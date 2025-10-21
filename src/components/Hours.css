@@ -7,6 +7,11 @@
   background: white;
 }
 
+/* Override section title for light background */
+.hours .section-title {
+  color: #0F172A !important;
+}
+
 .hours-grid {
   max-width: 800px;
   margin: 0 auto;

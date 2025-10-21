@@ -128,13 +128,11 @@ body {
   text-align: center;
   font-size: 3rem;
   margin-bottom: 4rem;
-  color: #0F172A;
+  color: white;
   position: relative;
   font-weight: 800;
-  background: linear-gradient(135deg, #0F172A 0%, #475569 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  width: 100%;
+  display: block;
 }
 
 .section-title::after {
@@ -145,7 +143,7 @@ body {
   transform: translateX(-50%);
   width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, #6366F1, #8B5CF6);
+  background: linear-gradient(90deg, #FFD700, #FFA500, #6366F1, #8B5CF6, #EC4899);
   border-radius: 2px;
 }
 

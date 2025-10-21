@@ -7,6 +7,11 @@
   background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
 }
 
+/* Override section title for light background */
+.reviews-section .section-title {
+  color: #0F172A !important;
+}
+
 .reviews-subtitle {
   text-align: center;
   color: #64748B;

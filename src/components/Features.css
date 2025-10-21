@@ -8,6 +8,11 @@
   min-height: 400px;
 }
 
+/* Override section title for light background */
+.features .section-title {
+  color: #0F172A !important;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

@@ -7,6 +7,11 @@
   background: #FAFBFC;
 }
 
+/* Override section title for light background */
+.map-section .section-title {
+  color: #0F172A !important;
+}
+
 .map-wrapper {
   display: grid;
   grid-template-columns: 2fr 1fr;
