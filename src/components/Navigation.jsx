@@ -133,6 +133,9 @@ const Navigation = () => {
           <li className="nav-item">
             <a href="#features" className="nav-link" onClick={handleNavClick}>Features</a>
           </li>
+          <li className="nav-item">
+            <a href="#products" className="nav-link" onClick={handleNavClick}>Our Products</a>
+          </li>
           <li className="nav-item dropdown-parent" ref={dropdownRef}>
             <span 
               className="nav-link" 
@@ -170,6 +173,9 @@ const Navigation = () => {
         </div>
         <div className="mobile-menu-item">
           <a href="#features" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Features</a>
+        </div>
+        <div className="mobile-menu-item">
+          <a href="#products" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Our Products</a>
         </div>
         <div className="mobile-menu-item">
           <div 
