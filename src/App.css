@@ -2,6 +2,26 @@
    JUMBO CONVENIENCE STORE - MAIN STYLES
    ======================================== */
 
+/* Loading placeholders for lazy-loaded components */
+.loading-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+  margin: 1rem 0;
+  color: #6c757d;
+  font-weight: 500;
+  min-height: 100px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
 * {
   margin: 0;
   padding: 0;

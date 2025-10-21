@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { useBusiness } from '../contexts/BusinessContext';
+import { loadGoogleMaps, isGoogleMapsReady } from '../utils/loadGoogleMaps';
 import './Map.css';
 
 // ========================================
@@ -85,6 +86,105 @@ const MapComponent = () => {
     return '+35677065767';
   };
 
+  const showFallbackMap = useCallback(() => {
+    if (!mapRef.current) return;
+    setMapLoading(false);
+    
+    // Add loaded class to map container
+    mapRef.current.classList.add('map-loaded');
+    
+    mapRef.current.innerHTML = `
+      <div style="
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #4A55A2 0%, #3A4592 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      ">
+        <!-- Animated background pattern -->
+        <div style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+            radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+          animation: float 6s ease-in-out infinite;
+        "></div>
+        
+        <div style="position: relative; z-index: 2;">
+          <div style="font-size: 4rem; margin-bottom: 1.5rem; animation: bounce 2s ease-in-out infinite;">🗺️</div>
+          <h3 style="margin: 0 0 1rem 0; font-size: 1.8rem; font-weight: 700;">Jumbo Convenience Store</h3>
+          <p style="margin: 0 0 2rem 0; opacity: 0.9; font-size: 1.1rem;">Triq Il-Qolla Is-Safra<br />Marsalforn, Iż-Żebbuġ, Gozo, Malta</p>
+          
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <a 
+              href="https://www.google.com/maps/dir/?api=1&destination=36.0721098,14.2554454" 
+              target="_blank" 
+              style="
+                background: white;
+                color: #4A55A2;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+              "
+              onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
+            >
+              📍 Get Directions
+            </a>
+            <a 
+              href="tel:+35677065767" 
+              style="
+                background: rgba(255,255,255,0.2);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                border: 2px solid rgba(255,255,255,0.3);
+              "
+              onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-3px)'"
+              onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0)'"
+            >
+              📞 Call Us
+            </a>
+          </div>
+          
+          <p style="margin: 1.5rem 0 0 0; opacity: 0.7; font-size: 0.9rem;">
+            Click "Get Directions" to open in Google Maps
+          </p>
+        </div>
+        
+        <style>
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+          }
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+          }
+        </style>
+      </div>
+    `;
+  }, []);
+
   useEffect(() => {
     let mapTimeout;
 
@@ -96,105 +196,6 @@ const MapComponent = () => {
         showFallbackMap();
       }
     }, 20000); // 20 second timeout
-
-    const showFallbackMap = () => {
-      if (!mapRef.current) return;
-      setMapLoading(false);
-      
-      // Add loaded class to map container
-      mapRef.current.classList.add('map-loaded');
-      
-      mapRef.current.innerHTML = `
-        <div style="
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, #4A55A2 0%, #3A4592 100%);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          text-align: center;
-          padding: 2rem;
-          position: relative;
-          overflow: hidden;
-        ">
-          <!-- Animated background pattern -->
-          <div style="
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-              radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: float 6s ease-in-out infinite;
-          "></div>
-          
-          <div style="position: relative; z-index: 2;">
-            <div style="font-size: 4rem; margin-bottom: 1.5rem; animation: bounce 2s ease-in-out infinite;">🗺️</div>
-            <h3 style="margin: 0 0 1rem 0; font-size: 1.8rem; font-weight: 700;">Jumbo Convenience Store</h3>
-            <p style="margin: 0 0 2rem 0; opacity: 0.9; font-size: 1.1rem;">Triq Il-Qolla Is-Safra<br />Marsalforn, Iż-Żebbuġ, Gozo, Malta</p>
-            
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-              <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=36.0721098,14.2554454" 
-                target="_blank" 
-                style="
-                  background: white;
-                  color: #4A55A2;
-                  padding: 1rem 2rem;
-                  border-radius: 25px;
-                  text-decoration: none;
-                  font-weight: 600;
-                  transition: all 0.3s ease;
-                  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                "
-                onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
-                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
-              >
-                📍 Get Directions
-              </a>
-              <a 
-                href="tel:+35677065767" 
-                style="
-                  background: rgba(255,255,255,0.2);
-                  color: white;
-                  padding: 1rem 2rem;
-                  border-radius: 25px;
-                  text-decoration: none;
-                  font-weight: 600;
-                  transition: all 0.3s ease;
-                  border: 2px solid rgba(255,255,255,0.3);
-                "
-                onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-3px)'"
-                onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0)'"
-              >
-                📞 Call Us
-              </a>
-            </div>
-            
-            <p style="margin: 1.5rem 0 0 0; opacity: 0.7; font-size: 0.9rem;">
-              Click "Get Directions" to open in Google Maps
-            </p>
-          </div>
-          
-          <style>
-            @keyframes float {
-              0%, 100% { transform: translateY(0px); }
-              50% { transform: translateY(-10px); }
-            }
-            @keyframes bounce {
-              0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-              40% { transform: translateY(-10px); }
-              60% { transform: translateY(-5px); }
-            }
-          </style>
-        </div>
-      `;
-    };
 
     const initializeMap = () => {
       console.log('🗺️ [Map] initializeMap called');
@@ -548,79 +549,37 @@ const MapComponent = () => {
       }
     };
 
-    // Load Google Maps API
-    const loadGoogleMaps = () => {
-      console.log('🗺️ [Map] Starting map loading process...');
+    // Load Google Maps API on demand
+    const loadGoogleMapsOnDemand = async () => {
+      console.log('🗺️ [Map] Starting on-demand map loading...');
       
-      // Check if Google Maps is already loaded and ready
-      if (window.google && window.google.maps && window.google.maps.Map) {
-        console.log('✅ [Map] Google Maps already loaded, initializing...');
+      try {
+        // Check if already loaded
+        if (isGoogleMapsReady()) {
+          console.log('✅ [Map] Google Maps already loaded, initializing...');
+          clearTimeout(mapTimeout);
+          initializeMap();
+          return;
+        }
+
+        // Load Google Maps API
+        await loadGoogleMaps();
+        console.log('✅ [Map] Google Maps loaded successfully');
         clearTimeout(mapTimeout);
         initializeMap();
-        return;
-      }
-
-      // Check if script is already being loaded
-      const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
-      if (existingScript) {
-        console.log('📡 [Map] Google Maps script already exists, waiting for it to load...');
-        // Wait for existing script to load
-        const checkGoogleMaps = () => {
-          if (window.google && window.google.maps && window.google.maps.Map) {
-            console.log('✅ [Map] Google Maps ready, initializing...');
-            clearTimeout(mapTimeout);
-            initializeMap();
-          } else {
-            setTimeout(checkGoogleMaps, 100);
-          }
-        };
-        checkGoogleMaps();
-        return;
-      }
-
-      console.log('📡 [Map] Loading Google Maps API...');
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDcbkothKmoFZVqDYvreRi2WGwpu68IEys&libraries=places&callback=initGoogleMap`;
-      script.async = true;
-      script.defer = true;
-      
-      // Set up global callback
-      window.initGoogleMap = () => {
-        console.log('✅ [Map] Google Maps API loaded via callback');
+      } catch (error) {
+        console.error('❌ [Map] Failed to load Google Maps:', error);
         clearTimeout(mapTimeout);
-        if (window.google && window.google.maps && window.google.maps.Map) {
-          console.log('✅ [Map] Google Maps ready, initializing...');
-          initializeMap();
-        } else {
-          console.warn('❌ [Map] Google Maps API loaded but not ready. Using fallback map.');
-          showFallbackMap();
-        }
-        // Clean up global callback
-        delete window.initGoogleMap;
-      };
-      
-      script.onerror = (error) => {
-        console.error('❌ [Map] Google Maps API failed to load:', error);
-        clearTimeout(mapTimeout);
-        console.warn('Using fallback map.');
         showFallbackMap();
-        // Clean up global callback
-        delete window.initGoogleMap;
-      };
-      
-      document.head.appendChild(script);
+      }
     };
 
-    loadGoogleMaps();
+    // Load maps on demand
+    loadGoogleMapsOnDemand();
 
     return () => {
       // Clear timeout
       clearTimeout(mapTimeout);
-      
-      // Clean up global callback
-      if (window.initGoogleMap) {
-        delete window.initGoogleMap;
-      }
       
       // Clean up map instance
       if (mapInstanceRef.current) {
