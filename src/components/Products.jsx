@@ -74,6 +74,12 @@ const Products = () => {
       title: 'Morning Boost Essentials',
       description: 'Your must-have coffee and tea to kickstart the day or enjoy a break.',
       category: 'beverages'
+    },
+    {
+      image: '/imagesJumbo/frozen meat.webp',
+      title: 'FROZEN HARVEST!',
+      description: 'Prime Meats, Simply Prepared - From farm-fresh cuts to premium selections, our frozen meats are flash-frozen at peak freshness to lock in flavor and nutrition.',
+      category: 'frozen'
     }
   ];
 
