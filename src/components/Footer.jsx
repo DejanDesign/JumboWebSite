@@ -61,14 +61,30 @@ I look forward to hearing from you.
 Best regards,
 [Your Name]`;
     
-    // Try to open Gmail directly, fallback to mailto
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=jobs@jumbo-convenience.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    const mailtoLink = `mailto:jobs@jumbo-convenience.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Detect if we're on mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Try Gmail first, then fallback to mailto
-    const gmailWindow = window.open(gmailUrl, '_blank');
-    if (!gmailWindow) {
-      window.location.href = mailtoLink;
+    if (isMobile) {
+      // For mobile, use mailto directly as it works better
+      const mailtoLink = `mailto:jobs@jumbo-convenience.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Create a temporary link element and click it
+      const link = document.createElement('a');
+      link.href = mailtoLink;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // For desktop, try Gmail first, fallback to mailto
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=jobs@jumbo-convenience.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoLink = `mailto:jobs@jumbo-convenience.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      try {
+        window.open(gmailUrl, '_blank');
+      } catch (error) {
+        window.open(mailtoLink);
+      }
     }
   };
 
