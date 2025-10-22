@@ -443,7 +443,7 @@ const MapComponent = () => {
         const marker = new window.google.maps.Marker({
           position: { lat: 36.0721098, lng: 14.2554454 }, // Exact Jumbo Convenience Store coordinates from Google Maps
           map: mapInstanceRef.current,
-          title: 'Jumbo is here',
+          title: 'Jumbo',
           icon: {
             url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
               <svg width="60" height="80" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
@@ -495,7 +495,7 @@ const MapComponent = () => {
               font-size: 14px;
               box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             ">
-              🏪 Jumbo is here
+              🏪 Jumbo
             </div>
           `,
           maxWidth: 150,

@@ -164,6 +164,19 @@
    RESPONSIVE DESIGN
    ======================================== */
 
+/* Large tablets and small laptops */
+@media (max-width: 1024px) {
+  .map-wrapper {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .map-container {
+    height: 450px;
+  }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
   .map-section {
     padding: 4rem 0;
@@ -203,28 +216,78 @@
   }
 }
 
+/* Large phones */
+@media (max-width: 640px) {
+  .map-container {
+    height: 350px;
+    border-radius: 15px;
+  }
+  
+  .location-card {
+    padding: 1.25rem;
+    border-radius: 15px;
+  }
+  
+  .location-details h3 {
+    font-size: 1.25rem;
+  }
+  
+  .location-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .location-actions .btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Small phones */
 @media (max-width: 480px) {
   .map-section {
     padding: 3rem 0;
   }
   
   .map-container {
-    height: 350px;
+    height: 300px;
+    border-radius: 12px;
   }
   
   .location-card {
     padding: 1rem;
+    border-radius: 12px;
   }
   
   .location-details h3 {
     font-size: 1.2rem;
   }
   
-  .location-actions {
-    flex-direction: column;
+  .location-details p {
+    font-size: 0.9rem;
   }
   
   .location-actions .btn {
-    width: 100%;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+  .map-container {
+    height: 280px;
+  }
+  
+  .location-card {
+    padding: 0.8rem;
+  }
+  
+  .location-details h3 {
+    font-size: 1.1rem;
+  }
+  
+  .location-details p {
+    font-size: 0.85rem;
   }
 }
