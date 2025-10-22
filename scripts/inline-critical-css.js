@@ -32,12 +32,17 @@ const config = {
   }
 };
 
-try {
-  console.log('🎨 Inlining critical CSS...');
-  const { css, html } = await critical.generate(config);
-  console.log('✅ Critical CSS inlined successfully!');
-  console.log(`📊 Critical CSS size: ${(css.length / 1024).toFixed(2)} KB`);
-} catch (error) {
-  console.error('❌ Error inlining critical CSS:', error);
-  process.exit(1);
+async function inlineCriticalCSS() {
+  try {
+    console.log('🎨 Inlining critical CSS...');
+    const { css, html } = await critical.generate(config);
+    console.log('✅ Critical CSS inlined successfully!');
+    console.log(`📊 Critical CSS size: ${(css.length / 1024).toFixed(2)} KB`);
+  } catch (error) {
+    console.error('❌ Error inlining critical CSS:', error);
+    process.exit(1);
+  }
 }
+
+// Run the async function
+inlineCriticalCSS();
