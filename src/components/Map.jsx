@@ -187,6 +187,7 @@ const MapComponent = () => {
 
   useEffect(() => {
     let mapTimeout;
+    let handleResize;
 
     // Set a timeout to show fallback if map doesn't load
     mapTimeout = setTimeout(() => {
@@ -533,7 +534,7 @@ const MapComponent = () => {
         });
 
         // Add resize listener to update marker size on orientation change
-        const handleResize = () => {
+        handleResize = () => {
           const newIsMobile = window.innerWidth <= 768;
           if (newIsMobile !== isMobile) {
             // Recreate marker with new size
@@ -636,8 +637,10 @@ const MapComponent = () => {
       // Clear timeout
       clearTimeout(mapTimeout);
       
-      // Remove resize listener
-      window.removeEventListener('resize', handleResize);
+      // Remove resize listener if it exists
+      if (handleResize) {
+        window.removeEventListener('resize', handleResize);
+      }
       
       // Clean up map instance
       if (mapInstanceRef.current) {
