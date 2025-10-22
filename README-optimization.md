@@ -10,7 +10,7 @@ This document outlines the performance optimizations implemented to improve the 
 - Implement proper caching strategies
 - Improve Core Web Vitals scores
 
-## 🚀 Implemented Optimizations
+## 🚀 Implemented  Optimizations ()
 
 ### 1. Critical CSS Inlining
 
