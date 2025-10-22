@@ -56,7 +56,7 @@ const Hero = () => {
         <h1 ref={titleRef} className="hero-title">Welcome to Jumbo</h1>
         <p ref={subtitleRef} className="hero-subtitle">Your Family-Run Convenience Store in Marsalforn, Gozo<br />With 2000+ Products to Choose From</p>
         <div ref={buttonsRef} className="hero-buttons">
-          <a href="#contact" className="btn btn-primary" onClick={handleNavClick}>Find Us</a>
+          <a href="#contact" className="btn btn-primary" onClick={handleNavClick}>Contact Us</a>
           <a href="#about" className="btn btn-secondary" onClick={handleNavClick}>Our Story</a>
         </div>
       </div>
