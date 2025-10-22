@@ -8,7 +8,7 @@
   width: 100%;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
-  padding: 1.5rem 5%;
+  padding: 1.2rem 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,15 +38,15 @@
 }
 
 /* Hide logo on mobile when hamburger is visible */
-@media (max-width: 768px) {
+@media (max-width: 1090px) {
   .nav-logo {
     display: none;
   }
 }
 
 .logo-image {
-  width: 80px;
-  height: 50px;
+  width: 120px;
+  height: 72px;
   object-fit: contain;
   border-radius: 8px;
   animation: pulse 2s ease-in-out infinite;
@@ -371,7 +371,7 @@
    RESPONSIVE DESIGN
    ======================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 1090px) {
   .navbar {
     padding: 1rem 4%;
   }
@@ -385,8 +385,16 @@
   }
   
   .logo-image {
-    width: 60px;
-    height: 40px;
+    width: 96px;
+    height: 56px;
+  }
+}
+
+/* Medium screens - show hamburger but keep larger logo */
+@media (max-width: 768px) {
+  .logo-image {
+    width: 96px;
+    height: 56px;
   }
 }
 
@@ -417,26 +425,27 @@
   }
 }
 
+/* Extra small screens - additional navbar adjustments */
 @media (max-width: 480px) {
   .navbar {
     padding: 0.8rem 3%;
   }
   
   .logo-image {
-    width: 50px;
-    height: 35px;
+    width: 80px;
+    height: 48px;
   }
 }
 
 /* Navbar scroll effect */
 .navbar.scrolled {
-  padding: 1rem 5%;
+  padding: 0.8rem 5%;
   box-shadow: 0 5px 30px rgba(0,0,0,0.15);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1090px) {
   .navbar.scrolled {
-    padding: 0.8rem 4%;
+    padding: 0.6rem 4%;
   }
   
   .status-indicator {

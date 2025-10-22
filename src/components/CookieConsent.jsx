@@ -30,6 +30,8 @@ const CookieConsent = () => {
     } else {
       const parsedConsent = JSON.parse(savedConsent);
       setConsent(parsedConsent);
+      // Initialize services if consent was already given
+      initializeServices(parsedConsent);
     }
   }, []);
 
@@ -80,8 +82,23 @@ const CookieConsent = () => {
   const initializeServices = (consentData) => {
     // Initialize Google Analytics if consented
     if (consentData.analytics) {
-      // Add Google Analytics initialization here
-      console.log('Analytics cookies enabled');
+      // Load Google Analytics script
+      const script1 = document.createElement('script');
+      script1.async = true;
+      script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LEL2B0DGQE';
+      document.head.appendChild(script1);
+
+      // Initialize gtag
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-LEL2B0DGQE', {
+        'anonymize_ip': true,
+        'cookie_flags': 'SameSite=None;Secure'
+      });
+      
+      console.log('Google Analytics initialized with ID: G-LEL2B0DGQE');
     }
     
     // Initialize marketing cookies if consented

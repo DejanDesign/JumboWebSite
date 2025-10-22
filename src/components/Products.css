@@ -1,0 +1,544 @@
+/* ========================================
+   PRODUCTS SECTION STYLES - JUMBO CONVENIENCE STORE
+   ======================================== */
+
+.products {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 50%, #CBD5E1 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Override section title for light background */
+.products .section-title {
+  color: #0F172A !important;
+}
+
+.products-subtitle {
+  text-align: center;
+  color: #64748B;
+  font-size: 1.2rem;
+  margin-bottom: 4rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.subtitle-highlight {
+  color: #6366F1;
+  font-weight: 600;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: highlightPulse 3s ease-in-out infinite;
+}
+
+.subtitle-emoji {
+  font-size: 1.4rem;
+  margin: 0 0.5rem;
+  animation: sparkle 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes highlightPulse {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.08),
+    0 4px 15px rgba(0, 0, 0, 0.04),
+    0 2px 8px rgba(0, 0, 0, 0.02);
+  border: 2px solid transparent;
+}
+
+.product-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    0 15px 35px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.04);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.product-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0; /* Match card's top border radius */
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.1);
+}
+
+.product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.product-category {
+  background: rgba(255, 255, 255, 0.9);
+  color: #6366F1;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+}
+
+.product-content {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.product-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.product-description {
+  color: #64748B;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.tag-icon {
+  font-size: 1rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+}
+
+.product-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.product-card:hover .product-shine {
+  left: 100%;
+}
+
+/* Individual product card color variations */
+.product-card-0 {
+  border-top: 4px solid #6366F1;
+}
+
+.product-card-1 {
+  border-top: 4px solid #10B981;
+}
+
+.product-card-2 {
+  border-top: 4px solid #F59E0B;
+}
+
+.product-card-3 {
+  border-top: 4px solid #EF4444;
+}
+
+.product-card-4 {
+  border-top: 4px solid #8B5CF6;
+}
+
+.product-card-5 {
+  border-top: 4px solid #EC4899;
+}
+
+/* Hover effects for different cards */
+.product-card-0:hover {
+  box-shadow: 
+    0 25px 50px rgba(99, 102, 241, 0.2),
+    0 15px 35px rgba(99, 102, 241, 0.1),
+    0 8px 20px rgba(99, 102, 241, 0.05);
+}
+
+.product-card-1:hover {
+  box-shadow: 
+    0 25px 50px rgba(16, 185, 129, 0.2),
+    0 15px 35px rgba(16, 185, 129, 0.1),
+    0 8px 20px rgba(16, 185, 129, 0.05);
+}
+
+.product-card-2:hover {
+  box-shadow: 
+    0 25px 50px rgba(245, 158, 11, 0.2),
+    0 15px 35px rgba(245, 158, 11, 0.1),
+    0 8px 20px rgba(245, 158, 11, 0.05);
+}
+
+.product-card-3:hover {
+  box-shadow: 
+    0 25px 50px rgba(239, 68, 68, 0.2),
+    0 15px 35px rgba(239, 68, 68, 0.1),
+    0 8px 20px rgba(239, 68, 68, 0.05);
+}
+
+.product-card-4:hover {
+  box-shadow: 
+    0 25px 50px rgba(139, 92, 246, 0.2),
+    0 15px 35px rgba(139, 92, 246, 0.1),
+    0 8px 20px rgba(139, 92, 246, 0.05);
+}
+
+.product-card-5:hover {
+  box-shadow: 
+    0 25px 50px rgba(236, 72, 153, 0.2),
+    0 15px 35px rgba(236, 72, 153, 0.1),
+    0 8px 20px rgba(236, 72, 153, 0.05);
+}
+
+/* Additional card variations for more products */
+.product-card-6 {
+  border-top: 4px solid #06B6D4;
+}
+
+.product-card-7 {
+  border-top: 4px solid #84CC16;
+}
+
+.product-card-8 {
+  border-top: 4px solid #F97316;
+}
+
+.product-card-9 {
+  border-top: 4px solid #A855F7;
+}
+
+.product-card-10 {
+  border-top: 4px solid #DC2626;
+}
+
+.product-card-6:hover {
+  box-shadow: 
+    0 25px 50px rgba(6, 182, 212, 0.2),
+    0 15px 35px rgba(6, 182, 212, 0.1),
+    0 8px 20px rgba(6, 182, 212, 0.05);
+}
+
+.product-card-7:hover {
+  box-shadow: 
+    0 25px 50px rgba(132, 204, 22, 0.2),
+    0 15px 35px rgba(132, 204, 22, 0.1),
+    0 8px 20px rgba(132, 204, 22, 0.05);
+}
+
+.product-card-8:hover {
+  box-shadow: 
+    0 25px 50px rgba(249, 115, 22, 0.2),
+    0 15px 35px rgba(249, 115, 22, 0.1),
+    0 8px 20px rgba(249, 115, 22, 0.05);
+}
+
+.product-card-9:hover {
+  box-shadow: 
+    0 25px 50px rgba(168, 85, 247, 0.2),
+    0 15px 35px rgba(168, 85, 247, 0.1),
+    0 8px 20px rgba(168, 85, 247, 0.05);
+}
+
+.product-card-10:hover {
+  box-shadow: 
+    0 25px 50px rgba(220, 38, 38, 0.2),
+    0 15px 35px rgba(220, 38, 38, 0.1),
+    0 8px 20px rgba(220, 38, 38, 0.05);
+}
+
+/* ========================================
+   SPECIAL CARD STYLES
+   ======================================== */
+
+.special-card {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.special-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+  animation: specialShine 3s ease-in-out infinite;
+}
+
+.special-card-content {
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.special-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: specialPulse 2s ease-in-out infinite;
+  display: block;
+}
+
+.special-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.category-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.category-tag:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.special-card .product-title {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.special-card .product-description {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.special-card .product-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.special-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 
+    0 30px 60px rgba(99, 102, 241, 0.3),
+    0 20px 40px rgba(139, 92, 246, 0.2),
+    0 10px 25px rgba(236, 72, 153, 0.1);
+}
+
+@keyframes specialPulse {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+@keyframes specialShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+  .products {
+    padding: 4rem 0;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .product-card {
+    border-radius: 20px;
+  }
+  
+  .product-image-container {
+    height: 180px;
+  }
+  
+  .product-content {
+    padding: 1.25rem;
+  }
+  
+  .product-title {
+    font-size: 1.2rem;
+  }
+  
+  .product-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products {
+    padding: 3rem 0;
+  }
+  
+  .product-image-container {
+    height: 160px;
+  }
+  
+  .product-content {
+    padding: 1rem;
+  }
+  
+  .product-title {
+    font-size: 1.1rem;
+  }
+  
+  .product-description {
+    font-size: 0.85rem;
+  }
+  
+  .product-tag {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .special-card-content {
+    padding: 1.5rem;
+  }
+  
+  .special-icon {
+    font-size: 3rem;
+  }
+  
+  .special-card .product-title {
+    font-size: 1.4rem;
+  }
+  
+  .category-tag {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* ========================================
+   ANIMATION KEYFRAMES
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations */
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+}

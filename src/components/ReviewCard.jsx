@@ -45,9 +45,13 @@ const ReviewCard = ({ review, index }) => {
           <div className="avatar-container">
             {review.profile_photo_url ? (
               <img 
-                src={review.profile_photo_url} 
+                src={review.profile_photo_url.replace(/=s\d+/, '=s36')} 
                 alt={review.author_name}
                 className="reviewer-avatar"
+                width="36"
+                height="36"
+                loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'flex';

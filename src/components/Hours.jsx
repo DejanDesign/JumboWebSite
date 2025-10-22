@@ -1,6 +1,7 @@
 import React from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import HourItem from './HourItem';
+import { useBusiness } from '../contexts/BusinessContext';
 import './Hours.css';
 
 // ========================================
@@ -14,18 +15,23 @@ import './Hours.css';
 // ========================================
 
 const Hours = () => {
+  const { businessData, loading, formatOpeningHours, getDefaultHours } = useBusiness();
+  
   // Get today's day name
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
   
-  const hours = [
-    { day: 'Monday', time: '07:00 - 13:00 | 16:00 - 22:00' },
-    { day: 'Tuesday', time: '07:00 - 13:00 | 16:00 - 22:00' },
-    { day: 'Wednesday', time: '07:00 - 13:00 | 16:00 - 22:00' },
-    { day: 'Thursday', time: '07:00 - 13:00 | 16:00 - 22:00' },
-    { day: 'Friday', time: '07:00 - 13:00 | 16:00 - 22:00' },
-    { day: 'Saturday', time: '07:00 - 22:00' },
-    { day: 'Sunday', time: '10:00 - 22:00', special: true }
-  ];
+  // Get hours from Google Business or use fallback
+  const hours = React.useMemo(() => {
+    if (loading) {
+      return getDefaultHours();
+    }
+    
+    if (businessData?.businessInfo?.openingHours) {
+      return formatOpeningHours(businessData.businessInfo.openingHours);
+    }
+    
+    return getDefaultHours();
+  }, [businessData, loading, formatOpeningHours, getDefaultHours]);
 
   const titleRef = useScrollAnimation({ 
     animationType: 'fadeInUp', 

@@ -1,0 +1,28 @@
+{
+  "name": "Jumbo Convenience Store",
+  "short_name": "Jumbo Store",
+  "description": "Your family-run convenience store in Marsalforn, Gozo",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#6366F1",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["shopping", "business", "lifestyle"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

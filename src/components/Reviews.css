@@ -7,6 +7,11 @@
   background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
 }
 
+/* Override section title for light background */
+.reviews-section .section-title {
+  color: #0F172A !important;
+}
+
 .reviews-subtitle {
   text-align: center;
   color: #64748B;
@@ -774,6 +779,18 @@
 .no-reviews p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
+}
+
+.no-reviews-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.no-reviews-actions .btn {
+  min-width: 160px;
 }
 
 /* ========================================

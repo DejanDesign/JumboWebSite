@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import ReviewCard from './ReviewCard';
+import { useBusiness } from '../contexts/BusinessContext';
 import './Reviews.css';
-import googlePlacesApi from '../services/googlePlacesApi';
 
 // ========================================
 // REVIEWS COMPONENT - JUMBO CONVENIENCE STORE
@@ -15,11 +15,11 @@ import googlePlacesApi from '../services/googlePlacesApi';
 // ========================================
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [businessInfo, setBusinessInfo] = useState(null);
-  const [lastUpdated, setLastUpdated] = useState(null);
+  const { businessData, loading, error, lastUpdated, refreshBusinessData } = useBusiness();
+  
+  // Get reviews and business info from context
+  const reviews = businessData?.reviews || [];
+  const businessInfo = businessData?.businessInfo || null;
 
   // Scroll animation refs
   const titleRef = useScrollAnimation({ 
@@ -45,46 +45,6 @@ const Reviews = () => {
     delay: 0.8,
     duration: 0.8 
   });
-
-  // Business coordinates from Google Maps
-  const BUSINESS_LAT = 36.0721098;
-  const BUSINESS_LNG = 14.2554454;
-
-  useEffect(() => {
-    const fetchGoogleReviews = async () => {
-      try {
-        setLoading(true);
-        
-        // Use the Google Places API service
-        const businessData = await googlePlacesApi.getBusinessData(
-          BUSINESS_LAT, 
-          BUSINESS_LNG, 
-          'Jumbo Convenience'
-        );
-        
-        if (businessData) {
-          console.log('Business data received:', businessData);
-          console.log('Reviews count:', businessData.reviews ? businessData.reviews.length : 0);
-          console.log('Reviews data:', businessData.reviews);
-          
-          setBusinessInfo(businessData.businessInfo);
-          setReviews(businessData.reviews || []);
-          setLastUpdated(new Date());
-        } else {
-          console.log('No business data found from Google');
-          setError('Unable to load reviews from Google. Please check if your business is properly listed on Google Maps.');
-        }
-        
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching reviews:', err);
-        setError('Failed to load reviews from Google');
-        setLoading(false);
-      }
-    };
-
-    fetchGoogleReviews();
-  }, []);
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000);
@@ -113,36 +73,7 @@ const Reviews = () => {
   };
 
   const handleRefresh = () => {
-    setLoading(true);
-    setError(null);
-    
-    // Re-fetch data
-    const fetchGoogleReviews = async () => {
-      try {
-        const businessData = await googlePlacesApi.getBusinessData(
-          BUSINESS_LAT, 
-          BUSINESS_LNG, 
-          'Jumbo Convenience'
-        );
-        
-        if (businessData) {
-          setBusinessInfo(businessData.businessInfo);
-          setReviews(businessData.reviews);
-          setLastUpdated(new Date());
-          console.log('Successfully refreshed business data:', businessData);
-        } else {
-          setError('Unable to load reviews from Google');
-        }
-        
-        setLoading(false);
-      } catch (err) {
-        console.error('Error refreshing reviews:', err);
-        setError('Failed to load reviews from Google');
-        setLoading(false);
-      }
-    };
-
-    fetchGoogleReviews();
+    refreshBusinessData();
   };
 
   if (loading) {
@@ -165,8 +96,14 @@ const Reviews = () => {
         <div className="container">
           <h2 ref={titleRef} className="section-title">Customer Reviews</h2>
           <div className="reviews-error">
-            <p>{error}</p>
+            <p>Unable to load reviews from Google</p>
             <p>Please check your Google Maps listing and try again later.</p>
+            <button 
+              className="btn btn-primary"
+              onClick={handleRefresh}
+            >
+              Try Again
+            </button>
           </div>
         </div>
       </section>
@@ -182,7 +119,6 @@ const Reviews = () => {
             See what our customers are saying about {businessInfo?.name || 'Jumbo Convenience Store'}
           </p>
           
-          
           <div className="no-reviews">
             <p>No reviews are currently displayed. This could be because:</p>
             <ul style={{textAlign: 'left', maxWidth: '400px', margin: '0 auto'}}>
@@ -190,13 +126,22 @@ const Reviews = () => {
               <li>Your business needs more reviews to appear</li>
               <li>There might be a temporary issue with Google's data</li>
             </ul>
-            <button 
-              className="btn btn-primary write-review-btn"
-              onClick={handleWriteReview}
-            >
-              <span className="btn-icon">⭐</span>
-              Write a Review
-            </button>
+            <div className="no-reviews-actions">
+              <button 
+                className="btn btn-primary write-review-btn"
+                onClick={handleWriteReview}
+              >
+                <span className="btn-icon">⭐</span>
+                Write a Review
+              </button>
+              <button 
+                className="btn btn-secondary"
+                onClick={handleRefresh}
+              >
+                <span className="btn-icon">🔄</span>
+                Refresh Data
+              </button>
+            </div>
           </div>
         </div>
       </section>

@@ -10,7 +10,6 @@ import './Navigation.css';
 // - Fixed header with backdrop blur effect
 // - Mobile-responsive hamburger menu
 // - Smooth scroll navigation
-// - WordPress blog integration via React Router
 // ========================================
 
 const Navigation = () => {
@@ -110,7 +109,7 @@ const Navigation = () => {
       <div className="nav-container">
         <Link to="/" className="nav-logo" onClick={closeMenus}>
           <img 
-            src="/logo/Jumbo Logo.webp" 
+            src="/logo/LogoBig.png" 
             alt="Jumbo Convenience Store Logo" 
             className="logo-image"
             onError={(e) => {
@@ -134,6 +133,9 @@ const Navigation = () => {
           <li className="nav-item">
             <a href="#features" className="nav-link" onClick={handleNavClick}>Features</a>
           </li>
+          <li className="nav-item">
+            <a href="#products" className="nav-link" onClick={handleNavClick}>Our Products</a>
+          </li>
           <li className="nav-item dropdown-parent" ref={dropdownRef}>
             <span 
               className="nav-link" 
@@ -146,7 +148,6 @@ const Navigation = () => {
             <div className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}>
               <a href="#hours" className="dropdown-item" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Opening Hours</a>
               <a href="#contact" className="dropdown-item" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Contact</a>
-              <Link to="/blog" className="dropdown-item" onClick={closeMenus}>Blog</Link>
             </div>
           </li>
         </ul>
@@ -174,6 +175,9 @@ const Navigation = () => {
           <a href="#features" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Features</a>
         </div>
         <div className="mobile-menu-item">
+          <a href="#products" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Our Products</a>
+        </div>
+        <div className="mobile-menu-item">
           <div 
             className="mobile-dropdown-toggle"
             onClick={toggleMobileDropdown}
@@ -184,7 +188,6 @@ const Navigation = () => {
           <div className={`mobile-dropdown-items ${isMobileDropdownOpen ? 'show' : ''}`}>
             <a href="#hours" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Opening Hours</a>
             <a href="#contact" onClick={(e) => { handleNavClick(e); closeMenus(); }}>Contact</a>
-            <Link to="/blog" onClick={closeMenus}>Blog</Link>
           </div>
         </div>
       </div>

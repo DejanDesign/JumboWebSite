@@ -27,6 +27,8 @@
   color: white;
 }
 
+/* Section title styling - now handled globally in App.css */
+
 .story-text p {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.8;

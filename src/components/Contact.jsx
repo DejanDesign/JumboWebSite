@@ -1,5 +1,6 @@
 import React from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import { useBusiness } from '../contexts/BusinessContext';
 import './Contact.css';
 
 // ========================================
@@ -13,6 +14,8 @@ import './Contact.css';
 // ========================================
 
 const Contact = () => {
+  const { businessData, loading } = useBusiness();
+  
   // Function to scroll to map section
   const scrollToMap = () => {
     const mapSection = document.getElementById('map');
@@ -24,11 +27,93 @@ const Contact = () => {
     }
   };
 
+  // Get phone number from Google Business or use fallback
+  const getPhoneNumber = () => {
+    if (loading) {
+      return '+356 7706 5767';
+    }
+    
+    if (businessData?.businessInfo?.phone) {
+      return businessData.businessInfo.phone;
+    }
+    
+    return '+356 7706 5767';
+  };
+
+  // Get address from Google Business or use fallback
+  const getAddress = () => {
+    if (loading) {
+      return 'Triq Il-Qolla Is-Safra<br />Iż-Żebbuġ, Gozo';
+    }
+    
+    if (businessData?.businessInfo?.address) {
+      // Format the address for display
+      const address = businessData.businessInfo.address;
+      // Split address into lines for better display
+      const addressLines = address.split(', ');
+      if (addressLines.length >= 2) {
+        return `${addressLines[0]}<br />${addressLines.slice(1).join(', ')}`;
+      }
+      return address;
+    }
+    
+    return 'Triq Il-Qolla Is-Safra<br />Iż-Żebbuġ, Gozo';
+  };
+
+  // Handle contact email with pre-filled template
+  const handleContactEmail = () => {
+    const subject = 'Inquiry - Jumbo Convenience Store';
+    const body = `Dear Jumbo Convenience Store Team,
+
+I hope this email finds you well. I am writing to inquire about your services and would like to get in touch with you.
+
+Please find my details below:
+
+Name: [Your Full Name]
+Email: [Your Email Address]
+Phone: [Your Phone Number]
+Subject: [Your Inquiry Subject]
+
+Message:
+[Please describe your inquiry, question, or how we can help you]
+
+I look forward to hearing from you soon.
+
+Best regards,
+[Your Name]`;
+    
+    // Detect if we're on mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      // For mobile, use mailto directly as it works better
+      const mailtoLink = `mailto:support@jumbo-convenience.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Create a temporary link element and click it
+      const link = document.createElement('a');
+      link.href = mailtoLink;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // For desktop, try Gmail first, fallback to mailto
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=support@jumbo-convenience.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoLink = `mailto:support@jumbo-convenience.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      try {
+        window.open(gmailUrl, '_blank');
+      } catch (error) {
+        window.open(mailtoLink);
+      }
+    }
+  };
+
   const contactInfo = [
     {
       icon: '📍',
       label: 'Location',
-      info: 'Triq Il-Qolla Is-Safra<br />Iż-Żebbuġ, Gozo',
+      info: getAddress(),
       action: scrollToMap,
       isClickable: true
     },
@@ -36,14 +121,17 @@ const Contact = () => {
       icon: '📧',
       label: 'Email',
       info: 'support@jumbo-convenience.com',
-      action: () => window.open('mailto:support@jumbo-convenience.com'),
+      action: handleContactEmail,
       isClickable: true
     },
     {
       icon: '📱',
       label: 'Phone',
-      info: '+356 7706 5767',
-      action: () => window.open('tel:+35677065767'),
+      info: getPhoneNumber(),
+      action: () => {
+        const phoneNumber = getPhoneNumber().replace(/\s/g, '');
+        window.open(`tel:${phoneNumber}`);
+      },
       isClickable: true
     }
   ];
@@ -57,7 +145,7 @@ const Contact = () => {
       ),
       label: 'Facebook',
       info: 'Follow us on Facebook',
-      action: () => window.open('https://facebook.com/jumboconvenience', '_blank'),
+      action: () => window.open('https://www.facebook.com/profile.php?id=61551407631705', '_blank'),
       isClickable: true
     },
     {
@@ -68,7 +156,7 @@ const Contact = () => {
       ),
       label: 'TikTok',
       info: 'Follow us on TikTok',
-      action: () => window.open('https://tiktok.com/@jumboconvenience', '_blank'),
+      action: () => window.open('https://www.tiktok.com/@jumbo0693?_t=ZN-90iPZVyWSIg&_r=1', '_blank'),
       isClickable: true
     }
   ];
