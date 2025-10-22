@@ -45,8 +45,8 @@
 }
 
 .logo-image {
-  width: 120px;
-  height: 72px;
+  width: 240px;
+  height: 144px;
   object-fit: contain;
   border-radius: 8px;
   animation: pulse 2s ease-in-out infinite;
