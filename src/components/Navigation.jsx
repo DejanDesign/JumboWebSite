@@ -109,7 +109,7 @@ const Navigation = () => {
       <div className="nav-container">
         <Link to="/" className="nav-logo" onClick={closeMenus}>
           <img 
-            src="/logo/LogoBig.png" 
+            src="/logo/Jumbo Logo.webp" 
             alt="Jumbo Convenience Store Logo" 
             className="logo-image"
             onError={(e) => {
