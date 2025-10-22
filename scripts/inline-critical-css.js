@@ -6,7 +6,7 @@
  * to improve PageSpeed scores and reduce render-blocking resources
  */
 
-import { critical } from 'critical';
+import critical from 'critical';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
