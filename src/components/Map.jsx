@@ -439,67 +439,74 @@ const MapComponent = () => {
         mapInstanceRef.current = new window.google.maps.Map(mapRef.current, mapOptions);
         console.log('✅ [Map] Map instance created successfully');
 
-        // Add custom marker with better design
+        // Detect if mobile device
+        const isMobile = window.innerWidth <= 768;
+        const markerSize = isMobile ? 40 : 60;
+        const markerHeight = isMobile ? 55 : 80;
+        
+        // Add custom marker with responsive design
         const marker = new window.google.maps.Marker({
           position: { lat: 36.0721098, lng: 14.2554454 }, // Exact Jumbo Convenience Store coordinates from Google Maps
           map: mapInstanceRef.current,
           title: 'Jumbo',
           icon: {
             url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-              <svg width="60" height="80" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+              <svg width="${markerSize}" height="${markerHeight}" viewBox="0 0 ${markerSize} ${markerHeight}" xmlns="http://www.w3.org/2000/svg">
                 <!-- Shadow -->
-                <ellipse cx="30" cy="75" rx="12" ry="4" fill="rgba(0,0,0,0.2)"/>
+                <ellipse cx="${markerSize/2}" cy="${markerHeight-5}" rx="${markerSize/5}" ry="3" fill="rgba(0,0,0,0.2)"/>
                 
                 <!-- Marker body -->
-                <path d="M30 5 C45 5 55 15 55 30 C55 45 30 70 30 70 C30 70 5 45 5 30 C5 15 15 5 30 5 Z" 
-                      fill="#4A55A2" stroke="#FFFFFF" stroke-width="3"/>
+                <path d="M${markerSize/2} 5 C${markerSize*0.75} 5 ${markerSize-5} ${markerSize/4} ${markerSize-5} ${markerSize/2} C${markerSize-5} ${markerSize*0.75} ${markerSize/2} ${markerHeight-10} ${markerSize/2} ${markerHeight-10} C${markerSize/2} ${markerHeight-10} 5 ${markerSize*0.75} 5 ${markerSize/2} C5 ${markerSize/4} ${markerSize/4} 5 ${markerSize/2} 5 Z" 
+                      fill="#4A55A2" stroke="#FFFFFF" stroke-width="2"/>
                 
                 <!-- Inner circle -->
-                <circle cx="30" cy="30" r="15" fill="#FFFFFF" opacity="0.9"/>
+                <circle cx="${markerSize/2}" cy="${markerSize/2}" r="${markerSize/4}" fill="#FFFFFF" opacity="0.9"/>
                 
                 <!-- Store icon -->
-                <g transform="translate(20, 20)">
-                  <rect x="2" y="8" width="16" height="12" fill="#4A55A2" rx="1"/>
-                  <rect x="4" y="6" width="12" height="2" fill="#4A55A2" rx="1"/>
-                  <rect x="6" y="4" width="8" height="2" fill="#4A55A2" rx="1"/>
-                  <rect x="8" y="2" width="4" height="2" fill="#4A55A2" rx="1"/>
-                  <circle cx="6" cy="12" r="1" fill="#FFFFFF"/>
-                  <circle cx="10" cy="12" r="1" fill="#FFFFFF"/>
-                  <circle cx="14" cy="12" r="1" fill="#FFFFFF"/>
+                <g transform="translate(${markerSize*0.33}, ${markerSize*0.33})">
+                  <rect x="2" y="6" width="${markerSize*0.27}" height="${markerSize*0.2}" fill="#4A55A2" rx="1"/>
+                  <rect x="3" y="4" width="${markerSize*0.2}" height="2" fill="#4A55A2" rx="1"/>
+                  <rect x="4" y="2" width="${markerSize*0.13}" height="2" fill="#4A55A2" rx="1"/>
+                  <rect x="5" y="1" width="${markerSize*0.07}" height="1" fill="#4A55A2" rx="1"/>
+                  <circle cx="5" cy="8" r="0.8" fill="#FFFFFF"/>
+                  <circle cx="8" cy="8" r="0.8" fill="#FFFFFF"/>
+                  <circle cx="11" cy="8" r="0.8" fill="#FFFFFF"/>
                 </g>
                 
                 <!-- Pulse animation ring -->
-                <circle cx="30" cy="30" r="20" fill="none" stroke="#4A55A2" stroke-width="2" opacity="0.3">
-                  <animate attributeName="r" values="20;35;20" dur="2s" repeatCount="indefinite"/>
+                <circle cx="${markerSize/2}" cy="${markerSize/2}" r="${markerSize/3}" fill="none" stroke="#4A55A2" stroke-width="1.5" opacity="0.3">
+                  <animate attributeName="r" values="${markerSize/3};${markerSize/2};${markerSize/3}" dur="2s" repeatCount="indefinite"/>
                   <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
                 </circle>
               </svg>
             `),
-            scaledSize: new window.google.maps.Size(60, 80),
-            anchor: new window.google.maps.Point(30, 80)
+            scaledSize: new window.google.maps.Size(markerSize, markerHeight),
+            anchor: new window.google.maps.Point(markerSize/2, markerHeight)
           },
           animation: window.google.maps.Animation.DROP
         });
 
-        // Add simple info window
+        // Add responsive info window
         const infoWindow = new window.google.maps.InfoWindow({
           content: `
             <div style="
-              padding: 12px 16px;
+              padding: ${isMobile ? '8px 12px' : '12px 16px'};
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
               text-align: center;
               background: #4A55A2;
               color: white;
-              border-radius: 8px;
+              border-radius: ${isMobile ? '6px' : '8px'};
               font-weight: 600;
-              font-size: 14px;
+              font-size: ${isMobile ? '12px' : '14px'};
               box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+              min-width: ${isMobile ? '60px' : '80px'};
+              white-space: nowrap;
             ">
               🏪 Jumbo
             </div>
           `,
-          maxWidth: 150,
-          pixelOffset: new window.google.maps.Size(0, -10)
+          maxWidth: isMobile ? 120 : 150,
+          pixelOffset: new window.google.maps.Size(0, isMobile ? -5 : -10)
         });
 
         // Add click listener for marker
@@ -524,6 +531,54 @@ const MapComponent = () => {
         mapInstanceRef.current.addListener('click', () => {
           infoWindow.close();
         });
+
+        // Add resize listener to update marker size on orientation change
+        const handleResize = () => {
+          const newIsMobile = window.innerWidth <= 768;
+          if (newIsMobile !== isMobile) {
+            // Recreate marker with new size
+            marker.setMap(null);
+            const newMarkerSize = newIsMobile ? 40 : 60;
+            const newMarkerHeight = newIsMobile ? 55 : 80;
+            
+            const newMarker = new window.google.maps.Marker({
+              position: { lat: 36.0721098, lng: 14.2554454 },
+              map: mapInstanceRef.current,
+              title: 'Jumbo',
+              icon: {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                  <svg width="${newMarkerSize}" height="${newMarkerHeight}" viewBox="0 0 ${newMarkerSize} ${newMarkerHeight}" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="${newMarkerSize/2}" cy="${newMarkerHeight-5}" rx="${newMarkerSize/5}" ry="3" fill="rgba(0,0,0,0.2)"/>
+                    <path d="M${newMarkerSize/2} 5 C${newMarkerSize*0.75} 5 ${newMarkerSize-5} ${newMarkerSize/4} ${newMarkerSize-5} ${newMarkerSize/2} C${newMarkerSize-5} ${newMarkerSize*0.75} ${newMarkerSize/2} ${newMarkerHeight-10} ${newMarkerSize/2} ${newMarkerHeight-10} C${newMarkerSize/2} ${newMarkerHeight-10} 5 ${newMarkerSize*0.75} 5 ${newMarkerSize/2} C5 ${newMarkerSize/4} ${newMarkerSize/4} 5 ${newMarkerSize/2} 5 Z" 
+                          fill="#4A55A2" stroke="#FFFFFF" stroke-width="2"/>
+                    <circle cx="${newMarkerSize/2}" cy="${newMarkerSize/2}" r="${newMarkerSize/4}" fill="#FFFFFF" opacity="0.9"/>
+                    <g transform="translate(${newMarkerSize*0.33}, ${newMarkerSize*0.33})">
+                      <rect x="2" y="6" width="${newMarkerSize*0.27}" height="${newMarkerSize*0.2}" fill="#4A55A2" rx="1"/>
+                      <rect x="3" y="4" width="${newMarkerSize*0.2}" height="2" fill="#4A55A2" rx="1"/>
+                      <rect x="4" y="2" width="${newMarkerSize*0.13}" height="2" fill="#4A55A2" rx="1"/>
+                      <rect x="5" y="1" width="${newMarkerSize*0.07}" height="1" fill="#4A55A2" rx="1"/>
+                      <circle cx="5" cy="8" r="0.8" fill="#FFFFFF"/>
+                      <circle cx="8" cy="8" r="0.8" fill="#FFFFFF"/>
+                      <circle cx="11" cy="8" r="0.8" fill="#FFFFFF"/>
+                    </g>
+                    <circle cx="${newMarkerSize/2}" cy="${newMarkerSize/2}" r="${newMarkerSize/3}" fill="none" stroke="#4A55A2" stroke-width="1.5" opacity="0.3">
+                      <animate attributeName="r" values="${newMarkerSize/3};${newMarkerSize/2};${newMarkerSize/3}" dur="2s" repeatCount="indefinite"/>
+                      <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                  </svg>
+                `),
+                scaledSize: new window.google.maps.Size(newMarkerSize, newMarkerHeight),
+                anchor: new window.google.maps.Point(newMarkerSize/2, newMarkerHeight)
+              },
+              animation: window.google.maps.Animation.DROP
+            });
+            
+            // Update marker reference
+            mapInstanceRef.current.markers = [newMarker];
+          }
+        };
+        
+        window.addEventListener('resize', handleResize);
         
         // Add loaded class to map container
         if (mapRef.current) {
@@ -580,6 +635,9 @@ const MapComponent = () => {
     return () => {
       // Clear timeout
       clearTimeout(mapTimeout);
+      
+      // Remove resize listener
+      window.removeEventListener('resize', handleResize);
       
       // Clean up map instance
       if (mapInstanceRef.current) {
