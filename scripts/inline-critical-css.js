@@ -6,9 +6,9 @@
  * to improve PageSpeed scores and reduce render-blocking resources
  */
 
-const critical = require('critical');
-const { fileURLToPath } = require('url');
-const { dirname, join } = require('path');
+import critical from 'critical';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,17 +32,12 @@ const config = {
   }
 };
 
-async function inlineCriticalCSS() {
-  try {
-    console.log('🎨 Inlining critical CSS...');
-    const { css, html } = await critical.generate(config);
-    console.log('✅ Critical CSS inlined successfully!');
-    console.log(`📊 Critical CSS size: ${(css.length / 1024).toFixed(2)} KB`);
-  } catch (error) {
-    console.error('❌ Error inlining critical CSS:', error);
-    process.exit(1);
-  }
+try {
+  console.log('🎨 Inlining critical CSS...');
+  const { css, html } = await critical.generate(config);
+  console.log('✅ Critical CSS inlined successfully!');
+  console.log(`📊 Critical CSS size: ${(css.length / 1024).toFixed(2)} KB`);
+} catch (error) {
+  console.error('❌ Error inlining critical CSS:', error);
+  process.exit(1);
 }
-
-// Run the async function
-inlineCriticalCSS();
